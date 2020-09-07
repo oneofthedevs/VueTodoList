@@ -48,6 +48,20 @@ export default {
       this.desc = "";
       this.priority = null;
     }
+    // onEdit(item) {
+    //   var obj = {
+    //     id: item.id,
+    //     title: item.title,
+    //     description: item.desc,
+    //     priority: Number.parseInt(item.priority)
+    //   };
+
+    // }
+  },
+  created() {
+    vueBus.$on("Edit", item => {
+      this.onEdit(item);
+    });
   }
 };
 </script>

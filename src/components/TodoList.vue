@@ -42,8 +42,8 @@ export default {
           });
         });
     },
-    async onEdit(item) {
-      console.log(item);
+    onEdit(item) {
+      vueBus.$emit("Edit", item);
     },
     async onDelete(item) {
       await db
