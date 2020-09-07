@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container form--width-setter">
     <form @submit.prevent="onSubmit()" autocomplete="off">
       <div class="form-items">
         <label for="title">Title</label>
@@ -9,7 +9,7 @@
         <label for="desc">Description</label>
         <textarea name="desc" class="form-item-textarea" ref="description"></textarea>
       </div>
-      <div class="form-items" style="display: block">
+      <div class="form-items">
         <input type="submit" :disabled="title === ''" class="btn btn-primary" ref="submit" />
       </div>
     </form>
@@ -32,13 +32,14 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
-  margin: 20px 25% 0 25%;
+.form--width-setter {
+  display: flex;
+  justify-content: center;
 }
 form {
   display: flex;
-  flex-basis: 500px;
   flex-direction: column;
+  flex-basis: 400px;
   label {
     font-size: 1.1rem;
     font-weight: 500;
