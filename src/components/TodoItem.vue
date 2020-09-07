@@ -46,9 +46,12 @@ export default {
   display: flex;
   flex-direction: column;
   flex-basis: 300px;
+  max-width: 600px;
   position: relative;
   border-radius: var(--br);
   padding: 30px 20px 40px 20px;
+  margin: 0 10px 10px 10px;
+  flex-grow: 1;
 }
 
 .title {
@@ -98,10 +101,12 @@ export default {
 
 .bg-high {
   background: #ef5350;
+  color: var(--clr-background);
 }
 
 .bg-completed {
   background: var(--clr-green);
+  transition: 250ms ease-in-out;
   // background: #81c784;
 }
 </style>

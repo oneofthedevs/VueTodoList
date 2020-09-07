@@ -24,6 +24,10 @@
   margin: 10px;
 }
 
+.d-flex {
+  display: flex;
+}
+
 @media screen and (max-width: 967px) {
   .container {
     margin: 0 10px;

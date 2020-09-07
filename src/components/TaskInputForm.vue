@@ -3,11 +3,19 @@
     <form @submit.prevent="onSubmit()" autocomplete="off">
       <div class="form-items">
         <label for="title">Title</label>
-        <input name="title" type="text" v-model="title" class="form-item" ref="title" />
+        <span class="d-flex">
+          <input name="title" type="text" v-model="title" class="form-item" ref="title" />
+          <select class="select-box" name="priority" v-model="priority">
+            <option value="null" selected disabled>Select Priority</option>
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+          </select>
+        </span>
       </div>
-      <div class="form-items" v-if="title != ''">
+      <div class="form-items" v-if="title !== '' && priority !== null">
         <label for="desc">Description</label>
-        <textarea name="desc" class="form-item-textarea" ref="description"></textarea>
+        <textarea name="desc" v-model="desc" class="form-item-textarea" ref="description"></textarea>
       </div>
       <div class="form-items">
         <input type="submit" :disabled="title === ''" class="btn btn-primary" ref="submit" />
@@ -17,15 +25,28 @@
 </template>
 
 <script>
+import { vueBus } from "./../main";
+
 export default {
   data() {
     return {
-      title: ""
+      title: "",
+      desc: "",
+      priority: null
     };
   },
   methods: {
     onSubmit() {
-      console.log("clicked");
+      var obj = {
+        title: this.title,
+        description: this.desc,
+        priority: Number.parseInt(this.priority),
+        completed: false
+      };
+      vueBus.$emit("Submit", obj);
+      this.title = "";
+      this.desc = "";
+      this.priority = null;
     }
   }
 };
@@ -44,6 +65,14 @@ form {
     font-size: 1.1rem;
     font-weight: 500;
   }
+  .select-box {
+    margin-left: 10px;
+    border: 0;
+    border-bottom: 1px solid var(--clr-font);
+  }
+  option {
+    padding: 10px;
+  }
   .form-items {
     margin: 0.5rem 0;
   }
@@ -53,6 +82,7 @@ form {
     border: 0;
     border-bottom: 1px solid var(--clr-font);
     transition: 250ms ease-in-out;
+    flex: 1;
   }
   input:focus {
     border-bottom: 1px solid var(--clr-green);

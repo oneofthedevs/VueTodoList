@@ -7,7 +7,7 @@ import { firestorePlugin } from 'vuefire';
 Vue.use(firestorePlugin);
 
 Vue.config.productionTip = false;
-
+export const vueBus = new Vue();
 new Vue({
   router,
   store,

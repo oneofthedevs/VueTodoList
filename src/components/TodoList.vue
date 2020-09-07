@@ -14,6 +14,7 @@
 <script>
 import db from "./../firebase";
 import TodoItem from "./TodoItem";
+import { vueBus } from "./../main";
 export default {
   name: "TodoList",
   components: {
@@ -26,8 +27,10 @@ export default {
   },
   methods: {
     async fetchTodos() {
+      this.todoList = [];
       await db
         .collection("todos")
+        .orderBy("completed")
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
@@ -39,18 +42,38 @@ export default {
           });
         });
     },
-    onEdit(item) {
+    async onEdit(item) {
       console.log(item);
     },
-    onDelete(item) {
+    async onDelete(item) {
+      await db
+        .collection("todos")
+        .doc(item)
+        .delete()
+        .then(() => {
+          this.fetchTodos();
+        });
+    },
+    async onCompleted(item) {
       console.log(item);
     },
-    onCompleted(item) {
-      console.log(item);
+    async onSubmit(item) {
+      await db
+        .collection("todos")
+        .add(item)
+        .then(() => {
+          this.fetchTodos();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   created() {
     this.fetchTodos();
+    vueBus.$on("Submit", item => {
+      this.onSubmit(item);
+    });
   }
 };
 </script>
