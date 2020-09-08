@@ -3,7 +3,6 @@ import "firebase/firestore";
 import fbConfig from "./firebaseConfig";
 
 const firebaseAPP = firebase.initializeApp(fbConfig);
-
 export default firebaseAPP.firestore();
 
 // const firebaseConfig = {

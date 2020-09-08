@@ -16,7 +16,7 @@ export default {
   components: {
     FormInput,
     Nav,
-    TodoList
-  }
+    TodoList,
+  },
 };
 </script>

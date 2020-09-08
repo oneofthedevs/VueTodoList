@@ -129,8 +129,8 @@ form {
   flex-direction: column;
   flex-basis: 400px;
   label {
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 700;
   }
   .select-box {
     margin-left: 10px;
