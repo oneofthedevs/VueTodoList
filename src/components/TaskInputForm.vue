@@ -4,7 +4,13 @@
       <div class="form-items">
         <label for="title">Title</label>
         <span class="d-flex">
-          <input name="title" type="text" v-model="title" class="form-item" ref="title" />
+          <input
+            name="title"
+            type="text"
+            v-model="title"
+            class="form-item"
+            ref="title"
+          />
           <select class="select-box" name="priority" v-model="priority">
             <option value="null" selected disabled>Select Priority</option>
             <option value="1">Low</option>
@@ -15,10 +21,23 @@
       </div>
       <div class="form-items" v-if="title !== '' && priority !== null">
         <label for="desc">Description</label>
-        <textarea name="desc" v-model="desc" class="form-item-textarea" ref="description"></textarea>
+        <textarea
+          name="desc"
+          v-model="desc"
+          class="form-item-textarea"
+          ref="description"
+        ></textarea>
       </div>
-      <div class="form-items">
-        <input type="submit" :disabled="title === ''" class="btn btn-primary" ref="submit" />
+      <div class="form-items d-flex">
+        <input
+          type="submit"
+          :disabled="title === ''"
+          class="btn btn-primary"
+          ref="submit"
+        />
+        <button class="btn btn-reset" @click.prevent="reset()">
+          <i class="fa fa-repeat"></i> Reset
+        </button>
       </div>
     </form>
   </div>
@@ -30,39 +49,59 @@ import { vueBus } from "./../main";
 export default {
   data() {
     return {
+      id: "",
       title: "",
       desc: "",
-      priority: null
+      priority: null,
+      completed: false,
     };
   },
   methods: {
     onSubmit() {
+      if (this.id === "") this.add();
+      else this.edit();
+    },
+    onEdit(item) {
+      this.id = item.id;
+      this.title = item.todoData.title;
+      this.desc = item.todoData.description;
+      this.priority = item.todoData.priority;
+      this.completed = item.todoData.completed;
+    },
+    reset() {
+      this.id = "";
+      this.title = "";
+      this.desc = "";
+      this.priority = null;
+      this.completed = false;
+    },
+    add() {
       var obj = {
         title: this.title,
         description: this.desc,
         priority: Number.parseInt(this.priority),
-        completed: false
+        completed: this.completed,
       };
       vueBus.$emit("Submit", obj);
-      this.title = "";
-      this.desc = "";
-      this.priority = null;
-    }
-    // onEdit(item) {
-    //   var obj = {
-    //     id: item.id,
-    //     title: item.title,
-    //     description: item.desc,
-    //     priority: Number.parseInt(item.priority)
-    //   };
-
-    // }
+      this.reset();
+    },
+    edit() {
+      var obj = {
+        id: this.id,
+        title: this.title,
+        description: this.desc,
+        priority: Number.parseInt(this.priority),
+        completed: this.completed,
+      };
+      vueBus.$emit("SaveEdit", obj);
+      this.reset();
+    },
   },
-  created() {
-    vueBus.$on("Edit", item => {
+  mounted() {
+    vueBus.$on("Edit", (item) => {
       this.onEdit(item);
     });
-  }
+  },
 };
 </script>
 
@@ -124,5 +163,11 @@ form {
 .btn-primary {
   background: var(--clr-green);
   color: var(--clr-background);
+}
+
+.btn-reset {
+  background: #ffc300;
+  margin-left: 14px;
+  padding: 0 20px;
 }
 </style>

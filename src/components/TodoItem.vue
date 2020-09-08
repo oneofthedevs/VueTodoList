@@ -5,12 +5,16 @@
       'bg-low': item.todoData.priority === 1,
       'bg-medium': item.todoData.priority === 2,
       'bg-high': item.todoData.priority === 3,
-      'bg-completed': item.todoData.completed === true
+      'bg-completed': item.todoData.completed === true,
     }"
   >
     <i id="btn-edit" class="icon fa fa-edit" @click="onEdit(item)"></i>
     <i id="btn-del" class="icon fa fa-times" @click="onDelete(item.id)"></i>
-    <i id="btn-completed" class="icon fa fa-check" @click="onCompleted(item.id)"></i>
+    <i
+      id="btn-completed"
+      class="icon fa fa-check"
+      @click="onCompleted(item.id)"
+    ></i>
     <h3 class="title">{{ item.todoData.title }}</h3>
     <p class="desc">{{ item.todoData.description }}</p>
   </div>
@@ -21,8 +25,8 @@ export default {
   props: {
     item: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {};
@@ -36,8 +40,8 @@ export default {
     },
     onCompleted(element) {
       this.$emit("Checked", element);
-    }
-  }
+    },
+  },
 };
 </script>
 

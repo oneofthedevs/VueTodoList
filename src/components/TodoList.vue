@@ -15,14 +15,15 @@
 import db from "./../firebase";
 import TodoItem from "./TodoItem";
 import { vueBus } from "./../main";
+
 export default {
   name: "TodoList",
   components: {
-    TodoItem
+    TodoItem,
   },
   data() {
     return {
-      todoList: []
+      todoList: [],
     };
   },
   methods: {
@@ -32,11 +33,11 @@ export default {
         .collection("todos")
         .orderBy("completed")
         .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
             const data = {
               id: doc.id,
-              todoData: doc.data()
+              todoData: doc.data(),
             };
             this.todoList.push(data);
           });
@@ -64,17 +65,34 @@ export default {
         .then(() => {
           this.fetchTodos();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
+    },
+    async saveEdit(item) {
+      const id = item.id;
+      console.log(id);
+      delete item.id;
+      console.log(item);
+      await db
+        .collection("todos")
+        .doc(id)
+        .update(item)
+        .then(() => {
+          this.fetchTodos();
+        })
+        .catch((err) => console.log(err));
+    },
   },
   created() {
     this.fetchTodos();
-    vueBus.$on("Submit", item => {
+    vueBus.$on("Submit", (item) => {
       this.onSubmit(item);
     });
-  }
+    vueBus.$on("SaveEdit", (item) => {
+      this.saveEdit(item);
+    });
+  },
 };
 </script>
 
