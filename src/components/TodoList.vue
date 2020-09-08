@@ -6,7 +6,7 @@
       :item="item"
       @Edit="onEdit"
       @Delete="onDelete"
-      @Checked="onCompleted"
+      @Checked="saveEdit"
     />
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
       this.todoList = [];
       await db
         .collection("todos")
-        .orderBy("completed")
+        .orderBy("completed", "desc")
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
@@ -55,9 +55,9 @@ export default {
           this.fetchTodos();
         });
     },
-    async onCompleted(item) {
-      console.log(item);
-    },
+    // async onCompleted(item) {
+    //   console.log(item);
+    // },
     async onSubmit(item) {
       await db
         .collection("todos")
@@ -73,6 +73,7 @@ export default {
       const id = item.id;
       console.log(id);
       delete item.id;
+      item = item.todoData;
       console.log(item);
       await db
         .collection("todos")

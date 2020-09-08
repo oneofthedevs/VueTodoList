@@ -13,10 +13,11 @@
     <i
       id="btn-completed"
       class="icon fa fa-check"
-      @click="onCompleted(item.id)"
+      @click="onCompleted(item)"
     ></i>
     <h3 class="title">{{ item.todoData.title }}</h3>
     <p class="desc">{{ item.todoData.description }}</p>
+    <p></p>
   </div>
 </template>
 
@@ -39,6 +40,12 @@ export default {
       this.$emit("Delete", element);
     },
     onCompleted(element) {
+      if (element.todoData.completed === true)
+        element.todoData.completed = false;
+      else {
+        element.todoData.completed = true;
+      }
+      console.log(element);
       this.$emit("Checked", element);
     },
   },
@@ -105,7 +112,6 @@ export default {
 
 .bg-high {
   background: #ef5350;
-  color: var(--clr-background);
 }
 
 .bg-completed {
