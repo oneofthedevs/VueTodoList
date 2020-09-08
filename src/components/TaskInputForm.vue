@@ -19,7 +19,13 @@
           </select>
         </span>
       </div>
-      <div class="form-items" v-if="title !== '' && priority !== null">
+      <div
+        class="form-items"
+        :class="{
+          'textarea-block': title === '' || priority === null,
+          'textarea-block--visible': title !== '' && priority !== null,
+        }"
+      >
         <label for="desc">Description</label>
         <textarea
           name="desc"
@@ -29,12 +35,20 @@
         ></textarea>
       </div>
       <div class="form-items d-flex">
-        <input
+        <!-- <input
           type="submit"
-          :disabled="title === ''"
+          :disabled="title === '' || priority === null"
           class="btn btn-primary"
           ref="submit"
-        />
+        /> -->
+        <button
+          class="btn btn-primary"
+          :disabled="title === '' || priority === null"
+          ref="submit"
+        >
+          <span v-if="id === ''">Add</span>
+          <span v-else>Edit</span>
+        </button>
         <button class="btn btn-reset" @click.prevent="reset()">
           <i class="fa fa-repeat"></i> Reset
         </button>
@@ -128,8 +142,10 @@ form {
   }
   .form-items {
     margin: 0.5rem 0;
+    position: relative;
   }
-  input {
+  input,
+  button {
     width: 100%;
     padding: 7px 2px;
     border: 0;
@@ -140,14 +156,23 @@ form {
   input:focus {
     border-bottom: 1px solid var(--clr-green);
   }
-  textarea {
+  .textarea-block {
+    visibility: hidden;
+    position: absolute;
+    top: -150px;
+  }
+
+  .textarea-block--visible {
+    visibility: visible;
+  }
+  .form-item-textarea {
     width: 100%;
     border: 0;
     height: 50px;
     border-bottom: 1px solid var(--clr-font);
     transition: 250ms ease-in-out;
   }
-  textarea:focus {
+  .form-item-textarea:focus {
     border-bottom: 1px solid var(--clr-green);
   }
 }
@@ -163,6 +188,7 @@ form {
 .btn-primary {
   background: var(--clr-green);
   color: var(--clr-background);
+  flex: 3;
 }
 
 .btn-reset {
