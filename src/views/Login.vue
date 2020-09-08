@@ -1,39 +1,47 @@
 <template>
-  <div class="login-form">
-    <form @submit.prevent="onLogin()" class="form-card" autocomplete="off">
-      <div class="form-items">
-        <label for="username">Email</label>
-        <input
-          type="email"
-          v-model="username"
-          class="form-item"
-          name="username"
-        />
-      </div>
-      <div class="form-items">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          v-model="password"
-          class="form-item"
-          name="password"
-        />
-      </div>
-      <div class="form-items">
-        <button
-          class="btn btn-primary mt-1"
-          :disabled="username === '' || password === ''"
-        >
-          Login
-        </button>
-      </div>
-    </form>
+  <div>
+    <Navbar />
+    <div class="login-form">
+      <form @submit.prevent="onLogin()" class="form-card" autocomplete="off">
+        <div class="form-items">
+          <label for="username">Email</label>
+          <input
+            type="email"
+            v-model="username"
+            class="form-item"
+            name="username"
+          />
+        </div>
+        <div class="form-items">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            v-model="password"
+            class="form-item"
+            name="password"
+          />
+        </div>
+        <div class="form-items">
+          <button
+            class="btn btn-primary mt-1"
+            :disabled="username === '' || password === ''"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase";
+import Navbar from "../components/navbar";
 export default {
   name: "Login",
+  components: {
+    Navbar,
+  },
   data() {
     return {
       username: "",
@@ -42,11 +50,14 @@ export default {
   },
   methods: {
     onLogin() {
-      const obj = {
-        email: this.username,
-        password: this.password,
-      };
-      console.log(obj);
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.username, this.password)
+        .then((user) => {
+          console.log(user);
+          this.$router.push("/Home");
+        })
+        .catch((err) => console.log(err));
     },
   },
 };
