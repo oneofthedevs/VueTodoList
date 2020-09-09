@@ -5,7 +5,7 @@
       'bg-low': item.todoData.priority === 1,
       'bg-medium': item.todoData.priority === 2,
       'bg-high': item.todoData.priority === 3,
-      'bg-completed': item.todoData.completed === true,
+      'bg-completed': item.todoData.completed === true
     }"
   >
     <i id="btn-edit" class="icon fa fa-edit" @click="onEdit(item)"></i>
@@ -45,7 +45,6 @@ export default {
       else {
         element.todoData.completed = true;
       }
-      console.log(element);
       this.$emit("Checked", element);
     },
   },
