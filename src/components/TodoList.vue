@@ -15,6 +15,7 @@
 import db from "./../firebase";
 import TodoItem from "./TodoItem";
 import { vueBus } from "./../main";
+import firebase from "firebase";
 
 export default {
   name: "TodoList",
@@ -24,6 +25,7 @@ export default {
   data() {
     return {
       todoList: [],
+      user: "",
     };
   },
   methods: {
@@ -31,6 +33,7 @@ export default {
       this.todoList = [];
       await db
         .collection("todos")
+        .where("email", "==", firebase.auth().currentUser.email)
         .orderBy("completed", "desc")
         .get()
         .then((querySnapshot) => {
@@ -71,10 +74,8 @@ export default {
     },
     async saveEdit(item) {
       const id = item.id;
-      console.log(id);
       delete item.id;
       item = item.todoData;
-      console.log(item);
       await db
         .collection("todos")
         .doc(id)

@@ -23,7 +23,7 @@
         class="form-items"
         :class="{
           'textarea-block': title === '' || priority === null,
-          'textarea-block--visible': title !== '' && priority !== null,
+          'textarea-block--visible': title !== '' && priority !== null
         }"
       >
         <label for="desc">Description</label>
@@ -59,7 +59,7 @@
 
 <script>
 import { vueBus } from "./../main";
-
+import fb from "firebase";
 export default {
   data() {
     return {
@@ -95,6 +95,7 @@ export default {
         description: this.desc,
         priority: Number.parseInt(this.priority),
         completed: this.completed,
+        email: fb.auth().currentUser.email,
       };
       vueBus.$emit("Submit", obj);
       this.reset();
@@ -106,6 +107,7 @@ export default {
         description: this.desc,
         priority: Number.parseInt(this.priority),
         completed: this.completed,
+        email: fb.auth().currentUser.email,
       };
       vueBus.$emit("SaveEdit", obj);
       this.reset();

@@ -14,7 +14,9 @@
       <router-link v-if="isLoggedIn" class="link-btn" to="Home"
         >Dashboard</router-link
       >
-      <div v-if="isLoggedIn" class="link-btn" v-on:click="logout">Logout</div>
+      <div v-if="isLoggedIn" class="link-btn btn-warning" v-on:click="logout">
+        Logout
+      </div>
     </div>
   </nav>
 </template>
@@ -26,7 +28,7 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      currentUser: false,
+      currentUser: "",
     };
   },
   methods: {
@@ -34,9 +36,17 @@ export default {
       firebase
         .auth()
         .signOut()
-        .then((x) => console.log(x))
+        .then(() => {
+          this.$router.push("/");
+        })
         .catch((err) => console.log(err));
     },
+  },
+  created() {
+    if (firebase.auth().currentUser) {
+      this.isLoggedIn = true;
+      this.currentUser = firebase.auth().currentUser.email;
+    }
   },
 };
 </script>
@@ -62,10 +72,13 @@ nav {
     align-items: center;
     height: 100%;
   }
+
+  .btn-warning {
+    background: #ef5350 !important;
+  }
   .link-btn {
     padding: 10px 18px;
     margin: 0 10px;
-    background: darkgreen;
     text-decoration: none;
     background: transparent;
     color: var(--clr-background);
