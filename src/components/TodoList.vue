@@ -61,20 +61,6 @@ export default {
     async onReload() {
       await this.fetchTodos();
     },
-    // async onCompleted(item) {
-    //   console.log(item);
-    // },
-    // async onSubmit(item) {
-    //   await db
-    //     .collection("todos")
-    //     .add(item)
-    //     .then(() => {
-    //       this.fetchTodos();
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     async saveEdit(item) {
       const id = item.id;
       delete item.id;
@@ -94,9 +80,6 @@ export default {
     vueBus.$on("Reload", () => {
       this.onReload();
     });
-    // vueBus.$on("SaveEdit", (item) => {
-    //   this.saveEdit(item);
-    // });
   },
 };
 </script>
