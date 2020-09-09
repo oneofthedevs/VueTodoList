@@ -58,20 +58,23 @@ export default {
           this.fetchTodos();
         });
     },
+    async onReload() {
+      await this.fetchTodos();
+    },
     // async onCompleted(item) {
     //   console.log(item);
     // },
-    async onSubmit(item) {
-      await db
-        .collection("todos")
-        .add(item)
-        .then(() => {
-          this.fetchTodos();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // async onSubmit(item) {
+    //   await db
+    //     .collection("todos")
+    //     .add(item)
+    //     .then(() => {
+    //       this.fetchTodos();
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     async saveEdit(item) {
       const id = item.id;
       delete item.id;
@@ -88,12 +91,12 @@ export default {
   },
   created() {
     this.fetchTodos();
-    vueBus.$on("Submit", (item) => {
-      this.onSubmit(item);
+    vueBus.$on("Reload", () => {
+      this.onReload();
     });
-    vueBus.$on("SaveEdit", (item) => {
-      this.saveEdit(item);
-    });
+    // vueBus.$on("SaveEdit", (item) => {
+    //   this.saveEdit(item);
+    // });
   },
 };
 </script>

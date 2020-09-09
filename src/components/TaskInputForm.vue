@@ -60,6 +60,7 @@
 <script>
 import { vueBus } from "./../main";
 import fb from "firebase";
+import db from "../firebase";
 export default {
   data() {
     return {
@@ -89,7 +90,7 @@ export default {
       this.priority = null;
       this.completed = false;
     },
-    add() {
+    async add() {
       var obj = {
         title: this.title,
         description: this.desc,
@@ -97,7 +98,15 @@ export default {
         completed: this.completed,
         email: fb.auth().currentUser.email,
       };
-      vueBus.$emit("Submit", obj);
+      await db
+        .collection("todos")
+        .add(obj)
+        .then(() => {
+          vueBus.$emit("Reload");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       this.reset();
     },
     edit() {
@@ -109,7 +118,13 @@ export default {
         completed: this.completed,
         email: fb.auth().currentUser.email,
       };
-      vueBus.$emit("SaveEdit", obj);
+      db.collection("todos")
+        .doc(this.id)
+        .update(obj)
+        .then(() => {
+          vueBus.$emit("Reload");
+        })
+        .catch((err) => console.log(err));
       this.reset();
     },
   },
