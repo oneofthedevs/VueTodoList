@@ -3,11 +3,12 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import firebase from "firebase";
+import Auth from "../views/Auth.vue";
+import Register from "../views/Register.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
-  //Eager Loading
   {
     path: "/Home",
     name: "Home",
@@ -16,20 +17,28 @@ const routes = [
       requiresAuth: true,
     },
   },
-  //Eager Loading
   {
-    path: "/Login",
-    name: "Login",
-    component: Login,
-    meta: {
-      requiresGuest: true,
-    },
-  },
-  //Lazy loading
-  {
-    path: "/Register",
-    name: "Register",
-    component: () => import("../views/Register.vue"),
+    path: "/Auth",
+    name: "Auth",
+    component: Auth,
+    children: [
+      {
+        path: "/Login",
+        name: "Login",
+        component: Login,
+        meta: {
+          requiresGuest: true,
+        },
+      },
+      {
+        path: "/Register",
+        name: "Register",
+        component: Register,
+        meta: {
+          requiresGuest: true,
+        },
+      },
+    ],
     meta: {
       requiresGuest: true,
     },
@@ -37,7 +46,7 @@ const routes = [
   //Wildcard redirect
   {
     path: "*",
-    redirect: "Home",
+    redirect: "Login",
   },
 ];
 
@@ -49,7 +58,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // Check required auth
-  if (to.matched.sum((recored) => recored.meta.requiresAuth)) {
+  if (to.matched.some((recored) => recored.meta.requiresAuth)) {
     // check if not logged in
     if (!firebase.auth().currentUser) {
       next({
@@ -61,7 +70,7 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
-  } else if (to.matched.sum((recored) => recored.meta.requiresGuest)) {
+  } else if (to.matched.some((recored) => recored.meta.requiresGuest)) {
     if (firebase.auth().currentUser) {
       next({
         path: "/Home",

@@ -1,14 +1,17 @@
 <template>
   <nav>
-    <div class="left"></div>
+    <div class="left">
+      <h1 v-if="!isLoggedIn">Todo List</h1>
+      <h1 v-if="isLoggedIn">{{ currentUser }}'s todo list</h1>
+    </div>
     <div class="right">
-      <router-link v-if="!isLoggedIn" class="link-btn" to="/Login"
+      <router-link v-if="!isLoggedIn" class="link-btn" to="Login"
         >Login</router-link
       >
-      <router-link v-if="!isLoggedIn" class="link-btn" to="/Register"
+      <router-link v-if="!isLoggedIn" class="link-btn" to="Register"
         >Register</router-link
       >
-      <router-link v-if="isLoggedIn" class="link-btn" to="/Home"
+      <router-link v-if="isLoggedIn" class="link-btn" to="Home"
         >Dashboard</router-link
       >
       <div v-if="isLoggedIn" class="link-btn" v-on:click="logout">Logout</div>
@@ -42,6 +45,16 @@ export default {
 nav {
   height: 56px;
   background: var(--clr-green);
+  display: flex;
+  .left {
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 20px;
+    color: var(--clr-background);
+    h1 {
+      font-weight: 100;
+    }
+  }
   .right {
     display: flex;
     flex: 1;
