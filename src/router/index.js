@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import firebase from "firebase";
 import Auth from "../views/Auth.vue";
@@ -12,7 +11,7 @@ const routes = [
   {
     path: "/Home",
     name: "Home",
-    component: Home,
+    component: () => import("../views/Home.vue"),
     meta: {
       requiresAuth: true,
     },
