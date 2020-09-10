@@ -63,6 +63,10 @@ export default {
   margin: 0 10px 10px 10px;
   flex-grow: 1;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+  // transition: 250ms ease-in-out;
+  // &:hover {
+  //   transform: scale(1.3);
+  // }
 }
 
 .title {
@@ -77,13 +81,21 @@ export default {
   font-weight: 400;
 }
 .icon {
-  display: none;
+  visibility: hidden;
   cursor: pointer;
 }
 
 .card:hover .icon {
-  display: inline-block;
-  transition: 500ms;
+  animation: 150ms fadeIn forwards;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 #btn-edit {
   position: absolute;

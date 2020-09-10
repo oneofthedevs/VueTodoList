@@ -15,5 +15,8 @@ export default {
     FormInput,
     TodoList,
   },
+  created() {
+    document.title = "TodoList";
+  },
 };
 </script>

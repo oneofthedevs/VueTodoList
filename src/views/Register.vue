@@ -54,6 +54,9 @@ export default {
         .catch((err) => console.log(err));
     },
   },
+  created() {
+    document.title = "TodoList - Register";
+  },
 };
 </script>
 

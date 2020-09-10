@@ -10,6 +10,9 @@ export default {
   components: {
     Navbar,
   },
+  mounted() {
+    document.title = "Todo List";
+  },
 };
 </script>
 <style lang="scss">

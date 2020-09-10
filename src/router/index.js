@@ -14,6 +14,7 @@ const routes = [
     component: () => import("../views/Home.vue"),
     meta: {
       requiresAuth: true,
+      title: "TodoList - Home",
     },
   },
   {

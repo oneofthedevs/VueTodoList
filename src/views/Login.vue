@@ -53,6 +53,9 @@ export default {
         .catch((err) => console.log(err));
     },
   },
+  created() {
+    document.title = "TodoList - Login";
+  },
 };
 </script>
 
