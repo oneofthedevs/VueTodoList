@@ -59,19 +59,22 @@ export default {
   max-width: 600px;
   position: relative;
   border-radius: var(--br);
-  padding: 30px 20px 40px 20px;
+  padding: 15px 20px 40px 20px;
   margin: 0 10px 10px 10px;
   flex-grow: 1;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
 .title {
   font-size: 1.6rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 14px 0;
 }
 
 .desc {
   text-align: justify;
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 .icon {
   display: none;
@@ -84,13 +87,13 @@ export default {
 }
 #btn-edit {
   position: absolute;
-  top: 10px;
+  top: 2px;
   left: 20px;
 }
 
 #btn-del {
   position: absolute;
-  top: 10px;
+  top: 2px;
   right: 20px;
 }
 
@@ -102,19 +105,19 @@ export default {
 }
 
 .bg-low {
-  background: #80d8ff;
+  border-top: 10px solid #80d8ff;
 }
 
 .bg-medium {
-  background: #ffff8d;
+  border-top: 10px solid #ffff8d;
 }
 
 .bg-high {
-  background: #ef5350;
+  border-top: 10px solid #ef5350;
 }
 
 .bg-completed {
-  background: var(--clr-green);
+  border-top: 10px solid var(--clr-green);
   transition: 250ms ease-in-out;
   // background: #81c784;
 }

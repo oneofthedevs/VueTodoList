@@ -2,7 +2,7 @@
   <nav>
     <div class="left">
       <h1 v-if="!isLoggedIn">Todo List</h1>
-      <h1 v-if="isLoggedIn">{{ currentUser }}'s todo list</h1>
+      <h1 v-if="isLoggedIn">Todo list</h1>
     </div>
     <div class="right">
       <router-link v-if="!isLoggedIn" class="link-btn" to="Login"
@@ -45,7 +45,7 @@ export default {
   created() {
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true;
-      this.currentUser = firebase.auth().currentUser.email;
+      // this.currentUser = firebase.auth().currentUser.email;
     }
   },
 };
@@ -77,8 +77,9 @@ nav {
     background: #ef5350 !important;
   }
   .link-btn {
-    padding: 10px 18px;
-    margin: 0 10px;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    margin: 0 15px;
     text-decoration: none;
     background: transparent;
     color: var(--clr-background);
