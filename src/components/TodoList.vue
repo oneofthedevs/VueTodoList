@@ -34,7 +34,7 @@ export default {
       await db
         .collection("todos")
         .where("email", "==", firebase.auth().currentUser.email)
-        .orderBy("completed", "desc")
+        .orderBy("completed")
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {

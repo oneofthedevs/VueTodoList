@@ -131,6 +131,5 @@ export default {
 .bg-completed {
   border-top: 10px solid var(--clr-green);
   transition: 250ms ease-in-out;
-  // background: #81c784;
 }
 </style>
