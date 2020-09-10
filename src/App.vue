@@ -63,15 +63,22 @@ form {
     margin: 0.5rem 0;
     position: relative;
   }
+  input {
+    padding: 7px 2px 4px 2px;
+  }
+  button {
+    padding: 10px 2px;
+  }
   input,
   button {
+    font-size: 1rem;
     width: 100%;
-    padding: 7px 2px;
     border: 0;
     border-bottom: 1px solid var(--clr-font);
     transition: 250ms ease-in-out;
     flex: 1;
   }
+
   input:focus {
     border-bottom: 1px solid var(--clr-green);
   }

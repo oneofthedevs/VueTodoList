@@ -21,6 +21,7 @@
       </div>
       <div class="form-items">
         <button
+          id="form-btn"
           class="btn btn-primary mt-1"
           :disabled="username === '' || password === ''"
         >
@@ -58,6 +59,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* #form-btn:active {
+  background: transparent;
+  color: transparent;
+  border: 1px solid var(--clr-green);
+  border-radius: 50%;
+  height: 38px;
+  width: 38px;
+} */
+</style>
 
 <style lang="scss">
 .login-form {

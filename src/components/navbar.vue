@@ -53,7 +53,7 @@ export default {
 
 <style lang="scss">
 nav {
-  height: 56px;
+  // height: 56px;
   background: var(--clr-green);
   display: flex;
   .left {
@@ -75,19 +75,23 @@ nav {
 
   .btn-warning {
     background: #ef5350 !important;
+    border-bottom: 5px solid transparent !important;
+    &:hover {
+      background: #be4543 !important;
+    }
   }
   .link-btn {
     font-size: 0.9rem;
-    padding: 6px 10px;
+    padding: 15px 10px 12px 10px;
     margin: 0 15px;
     text-decoration: none;
     background: transparent;
     color: var(--clr-background);
-    border-radius: var(--br);
     transition: 300ms ease-in-out;
     cursor: pointer;
+    border-bottom: 5px solid transparent;
     &:hover {
-      background: #00c853;
+      border-bottom: 5px solid #008f3c;
     }
   }
 }
