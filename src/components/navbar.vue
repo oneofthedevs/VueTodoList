@@ -1,8 +1,7 @@
 <template>
   <nav>
     <div class="left">
-      <h1 v-if="!isLoggedIn">Todo List</h1>
-      <h1 v-if="isLoggedIn">Todo list</h1>
+      <h1 class="nav-title">#Todo</h1>
     </div>
     <div class="right">
       <router-link v-if="!isLoggedIn" class="link-btn" to="Login"
@@ -62,7 +61,7 @@ nav {
     margin: 0 0 0 20px;
     color: var(--clr-background);
     h1 {
-      font-weight: 100;
+      font-weight: 600;
     }
   }
   .right {
