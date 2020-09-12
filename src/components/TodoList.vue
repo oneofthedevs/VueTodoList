@@ -15,7 +15,8 @@
 import db from "./../firebase";
 import TodoItem from "./TodoItem";
 import { vueBus } from "./../main";
-import firebase from "firebase";
+// import firebase from "firebase";
+// import TodoList from "@/components/TodoList.vue";
 
 export default {
   name: "TodoList",
@@ -30,22 +31,11 @@ export default {
   },
   methods: {
     async fetchTodos() {
-      this.todoList = [];
-      await db
-        .collection("todos")
-        .where("email", "==", firebase.auth().currentUser.email)
-        .orderBy("completed")
-        .orderBy("priority", "desc")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const data = {
-              id: doc.id,
-              todoData: doc.data(),
-            };
-            this.todoList.push(data);
-          });
-        });
+      // this.$store.state.todoList = [];
+      console.log(1);
+      await this.$store.dispatch("fetchTodoList");
+      this.todoList = this.$store.getters.getTodos;
+      console.log(2);
     },
     onEdit(item) {
       vueBus.$emit("Edit", item);
