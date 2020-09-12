@@ -1,24 +1,3 @@
-# real-world-vue
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8ba64abf-24fd-4957-8337-12fce97d023a/deploy-status)](https://app.netlify.com/sites/dctodolist/deploys)
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#Simple Todo List using VueJS and Vuex
