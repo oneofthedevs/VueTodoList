@@ -10,7 +10,7 @@
       }"
     >
       <i id="btn-edit" class="icon fa fa-edit" @click="onEdit(item)"></i>
-      <i id="btn-del" class="icon fa fa-times" @click="onDelete(item.id)"></i>
+      <i id="btn-del" class="icon fa fa-trash" @click="onDelete(item.id)"></i>
       <i
         id="btn-completed"
         class="icon fa fa-check"
@@ -64,7 +64,7 @@ export default {
   padding: 15px 20px 40px 20px;
   margin: 0 10px 10px 10px;
   flex-grow: 1;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 1.5px 0px rgba(0, 0, 0, 0.5);
   animation: 300ms card-in-from-top forwards;
   // transition: 250ms ease-in-out;
   // &:hover {
@@ -84,6 +84,15 @@ export default {
   font-weight: 400;
 }
 .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  background: rgb(206, 206, 206);
+  color: rgb(66, 66, 66);
   visibility: hidden;
   cursor: pointer;
 }
@@ -102,21 +111,20 @@ export default {
 }
 #btn-edit {
   position: absolute;
-  top: 2px;
-  left: 20px;
+  bottom: 14px;
+  right: 80px;
 }
 
 #btn-del {
   position: absolute;
-  top: 2px;
-  right: 20px;
+  bottom: 14px;
+  right: 50px;
 }
 
 #btn-completed {
   position: absolute;
   bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 20px;
 }
 
 .bg-low {
