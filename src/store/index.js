@@ -15,11 +15,14 @@ export default new Vuex.Store({
     addToTodos(state, payload) {
       state.todoList.push(payload);
     },
+    deleteFromTodo(state, payload) {
+      state.todoList.filter((x) => x.id !== payload);
+    },
   },
   actions: {
     // For Async
     async fetchTodoList(state) {
-      state.todoList = [];
+      // state.todoList = [];
       await db
         .collection("users")
         .where("email", "==", firebase.auth().currentUser.email)
@@ -43,7 +46,7 @@ export default new Vuex.Store({
         });
     },
     addToList(state, payload) {
-      state.todoList.push(payload);
+      state.commit("addToTodos", payload);
     },
     deleteFromList(state, payload) {
       state.todoList = state.todoList.filter((x) => x.id !== payload);

@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      todoList: [],
+      todoList: this.$store.getters.getTodos,
       user: "",
     };
   },
@@ -34,7 +34,7 @@ export default {
       // this.$store.state.todoList = [];
       console.log(1);
       await this.$store.dispatch("fetchTodoList");
-      this.todoList = this.$store.getters.getTodos;
+      // this.todoList = this.$store.getters.getTodos;
       console.log(2);
     },
     onEdit(item) {
@@ -49,11 +49,12 @@ export default {
           this.fetchTodos();
         });
     },
-    async onReload() {
-      await this.fetchTodos();
-    },
+    // async onReload() {
+    //   await this.fetchTodos();
+    // },
     async saveEdit(item) {
       const id = item.id;
+      ``;
       delete item.id;
       item = item.todoData;
       await db

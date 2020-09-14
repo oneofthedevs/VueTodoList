@@ -59,7 +59,7 @@
 
 <script>
 import { vueBus } from "./../main";
-import fb from "firebase";
+import firebase from "firebase";
 import db from "../firebase";
 export default {
   data() {
@@ -91,18 +91,30 @@ export default {
       this.completed = false;
     },
     async add() {
+      console.log("add");
       var obj = {
         title: this.title,
         description: this.desc,
         priority: Number.parseInt(this.priority),
         completed: this.completed,
-        email: fb.auth().currentUser.email,
+        email: firebase.auth().currentUser.email,
       };
+      console.log(obj);
       await db
-        .collection("todos")
-        .add(obj)
-        .then(() => {
-          vueBus.$emit("Reload");
+        .collection("users")
+        .where("email", "==", firebase.auth().currentUser.email)
+        .get()
+        .then((user) => {
+          console.log(user);
+          user.forEach((element) => {
+            db.collection("users")
+              .doc(element.id)
+              .collection("todos")
+              .add(obj)
+              .then(() => {
+                this.$store.dispatch("addToList", obj);
+              });
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -116,7 +128,7 @@ export default {
         description: this.desc,
         priority: Number.parseInt(this.priority),
         completed: this.completed,
-        email: fb.auth().currentUser.email,
+        email: firebase.auth().currentUser.email,
       };
       db.collection("todos")
         .doc(this.id)
