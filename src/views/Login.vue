@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import firebase from "firebase";
+// import firebase from "firebase";
+import { login } from "../services/auth-service";
 export default {
   name: "Login",
   components: {},
@@ -44,14 +45,13 @@ export default {
     };
   },
   methods: {
-    onLogin() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.username, this.password)
-        .then(() => {
-          this.$router.push({ name: "Home" });
-        })
-        .catch((err) => console.log(err));
+    async onLogin() {
+      let response = await login(this.username, this.password);
+      if (response) {
+        this.$router.push({ name: "Home" });
+      } else {
+        console.log("error");
+      }
     },
   },
   created() {
