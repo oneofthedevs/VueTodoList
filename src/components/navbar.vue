@@ -4,13 +4,16 @@
       <h1 class="nav-title">#Todo</h1>
     </div>
     <div class="right">
-      <router-link v-if="!isLoggedIn" class="link-btn" to="Login"
+      <router-link v-if="!isLoggedIn" class="link-btn" :to="{ name: 'Login' }"
         >Login</router-link
       >
-      <router-link v-if="!isLoggedIn" class="link-btn" to="Register"
+      <router-link
+        v-if="!isLoggedIn"
+        class="link-btn"
+        :to="{ name: 'Register' }"
         >Register</router-link
       >
-      <router-link v-if="isLoggedIn" class="link-btn" to="Home"
+      <router-link v-if="isLoggedIn" class="link-btn" :to="{ name: 'Home' }"
         >Dashboard</router-link
       >
       <div v-if="isLoggedIn" class="link-btn btn-warning" v-on:click="logout">
@@ -36,7 +39,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.$router.push("/");
+          this.$router.push({ name: "Login" });
         })
         .catch((err) => console.log(err));
     },

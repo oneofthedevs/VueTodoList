@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/Home",
+    path: "/",
     name: "Home",
     component: () => import("../views/Home.vue"),
     meta: {
@@ -21,32 +21,26 @@ const routes = [
     path: "/Auth",
     name: "Auth",
     component: Auth,
-    children: [
-      {
-        path: "/Login",
-        name: "Login",
-        component: Login,
-        meta: {
-          requiresGuest: true,
-        },
-      },
-      {
-        path: "/Register",
-        name: "Register",
-        component: Register,
-        meta: {
-          requiresGuest: true,
-        },
-      },
-    ],
     meta: {
       requiresGuest: true,
     },
+    children: [
+      {
+        path: "Login",
+        name: "Login",
+        component: Login,
+      },
+      {
+        path: "Register",
+        name: "Register",
+        component: Register,
+      },
+    ],
   },
   //Wildcard redirect
   {
     path: "*",
-    redirect: "Login",
+    redirect: { name: "Login" },
   },
 ];
 
@@ -62,7 +56,7 @@ router.beforeEach((to, from, next) => {
     // check if not logged in
     if (!firebase.auth().currentUser) {
       next({
-        path: "/Login",
+        path: "/Auth/Login",
         query: {
           redirect: to.fullPath,
         },
@@ -73,7 +67,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some((recored) => recored.meta.requiresGuest)) {
     if (firebase.auth().currentUser) {
       next({
-        path: "/Home",
+        path: "/",
         query: {
           redirect: to.fullPath,
         },

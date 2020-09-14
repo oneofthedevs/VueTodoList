@@ -49,7 +49,7 @@ export default {
         .createUserWithEmailAndPassword(this.username, this.password)
         .then((user) => {
           console.log(user);
-          this.$router.push("/Home");
+          this.$router.push({ name: "Home" });
         })
         .catch((err) => console.log(err));
     },
