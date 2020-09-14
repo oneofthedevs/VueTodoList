@@ -5,6 +5,7 @@ import store from "./store";
 import { firestorePlugin } from "vuefire";
 import firebase from "firebase";
 import "./firebase";
+import vuetify from './plugins/vuetify';
 
 Vue.use(firestorePlugin);
 
@@ -17,7 +18,8 @@ firebase.auth().onAuthStateChanged(() => {
     app = new Vue({
       router,
       store,
-      render: (h) => h(App),
+      vuetify,
+      render: (h) => h(App)
     }).$mount("#app");
   }
 });
