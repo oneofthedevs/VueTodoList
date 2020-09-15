@@ -31,11 +31,7 @@ export default {
   },
   methods: {
     async fetchTodos() {
-      // this.$store.state.todoList = [];
-      console.log(1);
       await this.$store.dispatch("fetchTodoList");
-      // this.todoList = this.$store.getters.getTodos;
-      console.log(2);
     },
     onEdit(item) {
       vueBus.$emit("Edit", item);

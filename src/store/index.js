@@ -9,6 +9,8 @@ export default new Vuex.Store({
   state: {
     todoList: [],
     currentTodo: {},
+    userId: "",
+    isLoggedIn: !!firebase.auth().currentUser,
   },
   mutations: {
     // For Sync
@@ -17,6 +19,9 @@ export default new Vuex.Store({
     },
     deleteFromTodo(state, payload) {
       state.todoList.filter((x) => x.id !== payload);
+    },
+    LoggedIn(state, payload) {
+      state.isLoggedIn = payload;
     },
   },
   actions: {
@@ -56,6 +61,12 @@ export default new Vuex.Store({
   getters: {
     getTodos(state) {
       return state.todoList;
+    },
+    getUserId(state) {
+      return state.userId;
+    },
+    isLoggedIn(state) {
+      return state.isLoggedIn;
     },
   },
 });

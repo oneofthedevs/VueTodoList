@@ -64,7 +64,15 @@
 </template>
 
 <script>
-import firebase from "firebase";
+// import firebase from "firebase";
+import { register } from "../services/auth-service";
+import {
+  addNewUser,
+  deleteCurrentUser,
+} from "../services/userCollection-service";
+
+import rules from "../common/rules";
+
 export default {
   name: "Register",
   components: {},
@@ -76,39 +84,44 @@ export default {
       firstName: "",
       lastName: "",
       show: false,
+      loading: false,
+      formError: false,
       rules: {
-        required: (value) => !!value || "Required.",
-        counter: (value) => value.length <= 20 || "Max 20 characters",
-        email: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "Invalid e-mail.";
-        },
-        password: (value) => {
-          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
-          return (
-            pattern.test(value) ||
-            "Password must contain lower case, uppercare character and a symbol"
-          );
-        },
-        minLength: (value) =>
-          value.length > 8 || "Password must be 8 characters",
+        ...rules,
         passwordMatch: (value) =>
           value === this.password || "Password does not match",
       },
-      loading: false,
-      formError: false,
     };
   },
   methods: {
-    onRegister() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.username, this.password)
-        .then((user) => {
-          console.log(user);
-          this.$router.push({ name: "Home" });
+    async onRegister() {
+      this.loading = true;
+      let obj = {
+        email: this.userName,
+        password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName,
+      };
+      await register(obj)
+        .then(async () => {
+          if (await addNewUser(obj)) {
+            this.$router.push({ name: "Home" });
+          } else {
+            throw new Error("Profile not addded");
+          }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (err.message !== "Profile not addded") {
+            console.log(err);
+          } else {
+            deleteCurrentUser().then(() => {
+              console.log("User Deleted successfully");
+            });
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   created() {

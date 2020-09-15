@@ -33,40 +33,13 @@
       >
         Invalid Email or Password
       </v-alert>
-      <!-- <div class="form-items">
-        <label for="username">Email</label>
-        <input
-          type="email"
-          v-model="username"
-          class="form-item"
-          name="username"
-        />
-      </div> -->
-      <!-- <div class="form-items">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          v-model="password"
-          class="form-item"
-          name="password"
-        />
-      </div>
-      <div class="form-items">
-        <button
-          id="form-btn"
-          class="btn btn-primary mt-1"
-          :disabled="username === '' || password === ''"
-        >
-          Login
-        </button>
-      </div> -->
     </form>
   </div>
 </template>
 
 <script>
-// import firebase from "firebase";
 import { login } from "../services/auth-service";
+import rules from "../common/rules";
 export default {
   name: "Login",
   components: {},
@@ -75,14 +48,7 @@ export default {
       username: "",
       password: "",
       show: false,
-      rules: {
-        required: (value) => !!value || "Required.",
-        counter: (value) => value.length <= 20 || "Max 20 characters",
-        email: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "Invalid e-mail.";
-        },
-      },
+      rules: rules,
       loading: false,
       formError: false,
     };
@@ -90,13 +56,19 @@ export default {
   methods: {
     async onLogin() {
       this.loading = true;
-      let response = await login(this.username, this.password);
-      if (response) {
-        this.$router.push({ name: "Home" });
-      } else {
-        console.log("error");
-      }
-      this.loading = false;
+      await login(this.username, this.password)
+        .then(() => {
+          this.$router.push({ name: "Home" });
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          this.loading = false;
+        });
+      // if (response) {
+      // } else {
+      //   console.log("error");
+      // }
+      // this.loading = false;
     },
   },
   created() {

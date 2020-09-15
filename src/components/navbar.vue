@@ -30,55 +30,32 @@
         Logout
       </v-btn>
     </v-toolbar>
-    <!-- <div class="left">
-      <h1 class="nav-title">#Todo</h1>
-    </div>
-    <div class="right">
-      <router-link v-if="!isLoggedIn" class="link-btn" :to="{ name: 'Login' }"
-        >Login</router-link
-      >
-      <router-link
-        v-if="!isLoggedIn"
-        class="link-btn"
-        :to="{ name: 'Register' }"
-        >Register</router-link
-      >
-      <router-link v-if="isLoggedIn" class="link-btn" :to="{ name: 'Home' }"
-        >Dashboard</router-link
-      >
-      <div v-if="isLoggedIn" class="link-btn btn-warning" v-on:click="logout">
-        Logout
-      </div>
-    </div> -->
   </nav>
 </template>
 
 <script>
+import { signOut } from "../services/auth-service";
 import firebase from "firebase";
 export default {
   name: "Navbar",
   data() {
     return {
-      isLoggedIn: false,
+      isLoggedIn: this.$store.getters.isLoggedIn,
       currentUser: "",
     };
   },
   methods: {
-    logout() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.push({ name: "Login" });
-        })
-        .catch((err) => console.log(err));
+    async logout() {
+      await signOut().then(() => {
+        this.$router.push({ name: "Login" });
+      });
     },
   },
-  created() {
-    if (firebase.auth().currentUser) {
-      this.isLoggedIn = true;
-      // this.currentUser = firebase.auth().currentUser.email;
-    }
+  watch: {
+    $route() {
+      this.$store.commit("LoggedIn", !!firebase.auth().currentUser);
+      this.isLoggedIn = this.$store.getters.isLoggedIn;
+    },
   },
 };
 </script>
@@ -89,32 +66,5 @@ nav {
     text-decoration: none;
     color: #fff !important;
   }
-  // height: 56px;
-  // background: var(--clr-green);
-  // display: flex;
-  // .left {
-  //   display: flex;
-  //   align-items: center;
-  //   margin: 0 0 0 20px;
-  //   color: var(--clr-background);
-  //   h1 {
-  //     font-weight: 600;
-  //   }
-  // }
-  // .right {
-  //   display: flex;
-  //   flex: 1;
-  //   justify-content: flex-end;
-  //   align-items: center;
-  //   height: 100%;
-  // }
-
-  // .btn-warning {
-  //   background: #ef5350 !important;
-  //   border-bottom: 5px solid transparent !important;
-  //   &:hover {
-  //     background: #be4543 !important;
-  //   }
-  // }
 }
 </style>

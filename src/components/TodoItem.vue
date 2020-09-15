@@ -66,10 +66,6 @@ export default {
   flex-grow: 1;
   box-shadow: 0px 0px 1.5px 0px rgba(0, 0, 0, 0.5);
   animation: 300ms card-in-from-top forwards;
-  // transition: 250ms ease-in-out;
-  // &:hover {
-  //   transform: scale(1.3);
-  // }
 }
 
 .title {

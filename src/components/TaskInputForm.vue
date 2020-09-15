@@ -35,12 +35,6 @@
         ></textarea>
       </div>
       <div class="form-items d-flex">
-        <!-- <input
-          type="submit"
-          :disabled="title === '' || priority === null"
-          class="btn btn-primary"
-          ref="submit"
-        /> -->
         <button
           class="btn btn-primary"
           :disabled="title === '' || priority === null"
