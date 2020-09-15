@@ -1,6 +1,38 @@
 <template>
   <nav>
-    <div class="left">
+    <v-toolbar dark dense>
+      <v-toolbar-title>#Todo</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-btn text small>
+        <router-link v-if="!isLoggedIn" class="link-btn" :to="{ name: 'Login' }"
+          >Login</router-link
+        ></v-btn
+      >
+
+      <v-btn text small>
+        <router-link
+          v-if="!isLoggedIn"
+          class="link-btn"
+          :to="{ name: 'Register' }"
+          >Register</router-link
+        >
+      </v-btn>
+      <v-btn text small>
+        <router-link v-if="isLoggedIn" class="link-btn" :to="{ name: 'Home' }"
+          >Dashboard</router-link
+        >
+      </v-btn>
+      <v-btn
+        color="error"
+        v-if="isLoggedIn"
+        class="link-btn btn-warning"
+        v-on:click="logout"
+      >
+        Logout
+      </v-btn>
+    </v-toolbar>
+    <!-- <div class="left">
       <h1 class="nav-title">#Todo</h1>
     </div>
     <div class="right">
@@ -19,7 +51,7 @@
       <div v-if="isLoggedIn" class="link-btn btn-warning" v-on:click="logout">
         Logout
       </div>
-    </div>
+    </div> -->
   </nav>
 </template>
 
@@ -55,46 +87,36 @@ export default {
 
 <style lang="scss">
 nav {
-  // height: 56px;
-  background: var(--clr-green);
-  display: flex;
-  .left {
-    display: flex;
-    align-items: center;
-    margin: 0 0 0 20px;
-    color: var(--clr-background);
-    h1 {
-      font-weight: 600;
-    }
-  }
-  .right {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-    align-items: center;
-    height: 100%;
-  }
-
-  .btn-warning {
-    background: #ef5350 !important;
-    border-bottom: 5px solid transparent !important;
-    &:hover {
-      background: #be4543 !important;
-    }
-  }
   .link-btn {
-    font-size: 0.9rem;
-    padding: 15px 10px 12px 10px;
-    margin: 0 15px;
     text-decoration: none;
-    background: transparent;
-    color: var(--clr-background);
-    transition: 300ms ease-in-out;
-    cursor: pointer;
-    border-bottom: 5px solid transparent;
-    &:hover {
-      border-bottom: 5px solid #008f3c;
-    }
+    color: #fff !important;
   }
+  // height: 56px;
+  // background: var(--clr-green);
+  // display: flex;
+  // .left {
+  //   display: flex;
+  //   align-items: center;
+  //   margin: 0 0 0 20px;
+  //   color: var(--clr-background);
+  //   h1 {
+  //     font-weight: 600;
+  //   }
+  // }
+  // .right {
+  //   display: flex;
+  //   flex: 1;
+  //   justify-content: flex-end;
+  //   align-items: center;
+  //   height: 100%;
+  // }
+
+  // .btn-warning {
+  //   background: #ef5350 !important;
+  //   border-bottom: 5px solid transparent !important;
+  //   &:hover {
+  //     background: #be4543 !important;
+  //   }
+  // }
 }
 </style>
