@@ -18,7 +18,7 @@
       <v-btn
         class="mt-2"
         :loading="loading"
-        :disabled="loading"
+        :disabled="loading || isEnable"
         color="secondary"
         @click="onLogin"
       >
@@ -89,16 +89,24 @@ export default {
   },
   methods: {
     async onLogin() {
+      this.loading = true;
       let response = await login(this.username, this.password);
       if (response) {
         this.$router.push({ name: "Home" });
       } else {
         console.log("error");
       }
+      this.loading = false;
     },
   },
   created() {
     document.title = "TodoList - Login";
+  },
+  computed: {
+    isEnable() {
+      if (this.username && this.password) return false;
+      else return true;
+    },
   },
 };
 </script>

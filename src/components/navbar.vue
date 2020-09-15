@@ -4,25 +4,23 @@
       <v-toolbar-title>#Todo</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn text small>
-        <router-link v-if="!isLoggedIn" class="link-btn" :to="{ name: 'Login' }"
-          >Login</router-link
-        ></v-btn
+
+      <router-link v-if="!isLoggedIn" class="link-btn" :to="{ name: 'Login' }"
+        ><v-btn text small>Login</v-btn></router-link
       >
 
-      <v-btn text small>
-        <router-link
-          v-if="!isLoggedIn"
-          class="link-btn"
-          :to="{ name: 'Register' }"
-          >Register</router-link
-        >
-      </v-btn>
-      <v-btn text small>
-        <router-link v-if="isLoggedIn" class="link-btn" :to="{ name: 'Home' }"
-          >Dashboard</router-link
-        >
-      </v-btn>
+      <router-link
+        v-if="!isLoggedIn"
+        class="link-btn"
+        :to="{ name: 'Register' }"
+      >
+        <v-btn text small>Register</v-btn></router-link
+      >
+
+      <router-link v-if="isLoggedIn" class="link-btn" :to="{ name: 'Home' }"
+        ><v-btn text small>Dashboard</v-btn></router-link
+      >
+
       <v-btn
         color="error"
         v-if="isLoggedIn"

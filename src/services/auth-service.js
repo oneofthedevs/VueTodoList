@@ -1,9 +1,9 @@
 import firebase from "firebase";
 
-export const login = async () => {
+export const login = async (email, password) => {
   firebase
     .auth()
-    .signInWithEmailAndPassword(this.username, this.password)
+    .signInWithEmailAndPassword(email, password)
     .then(() => {
       return true;
     })

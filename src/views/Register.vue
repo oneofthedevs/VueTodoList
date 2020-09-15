@@ -1,8 +1,25 @@
 <template>
   <div class="login-form">
     <form @submit.prevent="onRegister()" class="form-card" autocomplete="off">
+      <v-row>
+        <v-col>
+          <v-text-field
+            class="p-1"
+            v-model="firstName"
+            label="First name"
+            :rules="[rules.required]"
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="lastName"
+            label="Last name"
+            :rules="[rules.required]"
+          ></v-text-field>
+        </v-col>
+      </v-row>
       <v-text-field
-        v-model="username"
+        v-model="userName"
         label="E-mail"
         :rules="[rules.required, rules.email]"
       ></v-text-field>
@@ -10,15 +27,24 @@
         v-model="password"
         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
         :type="show ? 'text' : 'password'"
-        :rules="[rules.required]"
+        :rules="[rules.required, rules.minLength, rules.password]"
         name="input-10-1"
-        label="Enter your password"
+        label="Enter a password"
+        @click:append="show = !show"
+      ></v-text-field>
+      <v-text-field
+        v-model="confirmPassword"
+        :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="show ? 'text' : 'password'"
+        :rules="[rules.passwordMatch]"
+        name="input-10-1"
+        label="Confirm password"
         @click:append="show = !show"
       ></v-text-field>
       <v-btn
         class="mt-2"
         :loading="loading"
-        :disabled="loading"
+        :disabled="loading || isEnabled"
         color="secondary"
         @click="onRegister"
       >
@@ -33,32 +59,6 @@
       >
         Invalid Email or Password
       </v-alert>
-      <!-- <div class="form-items">
-        <label for="username">Email</label>
-        <input
-          type="email"
-          v-model="username"
-          class="form-item"
-          name="username"
-        />
-      </div>
-      <div class="form-items">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          v-model="password"
-          class="form-item"
-          name="password"
-        />
-      </div>
-      <div class="form-items">
-        <button
-          class="btn btn-primary mt-1"
-          :disabled="username === '' || password === ''"
-        >
-          Register
-        </button>
-      </div> -->
     </form>
   </div>
 </template>
@@ -70,8 +70,11 @@ export default {
   components: {},
   data() {
     return {
-      username: "",
+      userName: "",
       password: "",
+      confirmPassword: "",
+      firstName: "",
+      lastName: "",
       show: false,
       rules: {
         required: (value) => !!value || "Required.",
@@ -80,6 +83,17 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
         },
+        password: (value) => {
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
+          return (
+            pattern.test(value) ||
+            "Password must contain lower case, uppercare character and a symbol"
+          );
+        },
+        minLength: (value) =>
+          value.length > 8 || "Password must be 8 characters",
+        passwordMatch: (value) =>
+          value === this.password || "Password does not match",
       },
       loading: false,
       formError: false,
@@ -99,6 +113,13 @@ export default {
   },
   created() {
     document.title = "TodoList - Register";
+  },
+  computed: {
+    isEnabled() {
+      if (this.userName && this.password && this.firstName && this.lastName)
+        return false;
+      else return true;
+    },
   },
 };
 </script>
