@@ -5,30 +5,78 @@
 
       <v-spacer></v-spacer>
 
-      <router-link v-if="!isLoggedIn" class="link-btn" :to="{ name: 'Login' }"
-        ><v-btn text small>Login</v-btn></router-link
-      >
+      <div class="lg-screen">
+        <router-link v-if="!isLoggedIn" class="link-btn" :to="{ name: 'Login' }"
+          ><v-btn text small>Login</v-btn></router-link
+        >
 
-      <router-link
-        v-if="!isLoggedIn"
-        class="link-btn"
-        :to="{ name: 'Register' }"
-      >
-        <v-btn text small>Register</v-btn></router-link
-      >
+        <router-link
+          v-if="!isLoggedIn"
+          class="link-btn"
+          :to="{ name: 'Register' }"
+        >
+          <v-btn text small>Register</v-btn></router-link
+        >
 
-      <router-link v-if="isLoggedIn" class="link-btn" :to="{ name: 'Home' }"
-        ><v-btn text small>Dashboard</v-btn></router-link
-      >
+        <router-link v-if="isLoggedIn" class="link-btn" :to="{ name: 'Home' }"
+          ><v-btn text small>Dashboard</v-btn></router-link
+        >
 
-      <v-btn
-        color="error"
-        v-if="isLoggedIn"
-        class="link-btn btn-warning"
-        v-on:click="logout"
-      >
-        Logout
-      </v-btn>
+        <v-btn
+          color="error"
+          v-if="isLoggedIn"
+          class="link-btn btn-warning"
+          v-on:click="logout"
+        >
+          Logout
+        </v-btn>
+      </div>
+      <div class="sm-screen">
+        <v-menu bottom left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn dark icon v-bind="attrs" v-on="on">
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item v-if="!isLoggedIn">
+              <router-link
+                v-if="!isLoggedIn"
+                class="link-btn"
+                :to="{ name: 'Login' }"
+                ><v-btn text small>Login</v-btn></router-link
+              >
+            </v-list-item>
+            <v-list-item v-if="!isLoggedIn">
+              <router-link
+                v-if="!isLoggedIn"
+                class="link-btn"
+                :to="{ name: 'Register' }"
+              >
+                <v-btn text small>Register</v-btn></router-link
+              >
+            </v-list-item>
+            <v-list-item v-if="isLoggedIn">
+              <router-link
+                v-if="isLoggedIn"
+                class="link-btn"
+                :to="{ name: 'Home' }"
+                ><v-btn text small>Dashboard</v-btn></router-link
+              >
+            </v-list-item>
+            <v-list-item v-if="isLoggedIn">
+              <v-btn
+                color="error"
+                class="link-btn btn-warning"
+                v-on:click="logout"
+              >
+                Logout
+              </v-btn>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-toolbar>
   </nav>
 </template>
@@ -61,9 +109,21 @@ export default {
 </script>
 
 <style lang="scss">
+.sm-screen {
+  display: none;
+}
+
+@media screen and (max-width: 786px) {
+  .sm-screen {
+    display: block;
+  }
+  .lg-screen {
+    display: none;
+  }
+}
 nav {
   .link-btn {
-    text-decoration: none;
+    text-decoration: none !important;
     color: #fff !important;
   }
 }

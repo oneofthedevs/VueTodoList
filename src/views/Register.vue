@@ -64,7 +64,6 @@
 </template>
 
 <script>
-// import firebase from "firebase";
 import { register } from "../services/auth-service";
 import {
   addNewUser,
