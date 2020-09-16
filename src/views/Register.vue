@@ -1,5 +1,5 @@
 <template>
-  <div class="login-form">
+  <div class="form">
     <form @submit.prevent="onRegister()" class="form-card" autocomplete="off">
       <v-row>
         <v-col>
@@ -137,4 +137,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import "../common/styles/style.scss";
+</style>

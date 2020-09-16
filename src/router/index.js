@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
       next({
         path: "/Auth/Login",
         query: {
-          redirect: to.fullPath,
+          redirect: to.path,
         },
       });
     } else {
@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
       next({
         path: "/",
         query: {
-          redirect: to.fullPath,
+          redirect: to.path,
         },
       });
     } else {

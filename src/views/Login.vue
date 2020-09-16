@@ -1,5 +1,5 @@
 <template>
-  <div class="login-form">
+  <div class="form">
     <form @submit.prevent="onLogin()" class="form-card" autocomplete="off">
       <v-text-field
         v-model="username"
@@ -83,19 +83,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.login-form {
-  display: flex;
-  justify-content: center;
-  height: inherit;
-}
-.form-card {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 350px;
-  // border: 1px solid var(--clr-font);
-  padding: 30px 20px 20px 20px;
-  margin: 30px 0;
-  // box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
-}
+<style lang="scss" scoped>
+@import "../common/styles/style.scss";
 </style>
