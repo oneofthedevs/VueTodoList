@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "debounce": "^1.2.0",
     "firebase": "^7.19.1",
+    "particles.js": "^2.0.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuefire": "^2.2.4",

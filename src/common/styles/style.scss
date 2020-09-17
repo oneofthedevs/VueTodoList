@@ -1,35 +1,39 @@
 @import "./variables.scss";
 
+@mixin box-shadow {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
+}
+
 .form {
   display: flex;
-  position: relative;
+  // position: relative;
   height: 100%;
   width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 .form-card {
   display: flex;
-  position: absolute;
-  top: 20%;
-  right: 40px;
-  height: min-content;
   background: $white;
   flex-direction: column;
-  width: 400px;
-  border-radius: $br;
+  flex-basis: 400px;
+  // border-radius: $br;
   padding: 30px 20px 40px 20px;
   margin: 30px 0;
+  @include box-shadow;
+  border: 2px solid $black;
+  // transform: translateY(-100px);
+}
+.bg-black {
+  background: #000 !important;
+}
+.h-auto {
+  height: auto !important;
 }
 
 @media screen and (max-width: 1025px) {
-  .form {
-    justify-content: center;
-    align-items: center;
-  }
   .form-card {
-    position: initial;
-    transform: translateY(-100px);
-    width: auto;
-    flex-basis: 450px;
     margin: 0 10px;
+    transform: translateY(-100px);
   }
 }

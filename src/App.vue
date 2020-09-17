@@ -1,7 +1,7 @@
 <template>
-  <v-app id="v-app">
+  <v-app id="app-body">
     <Navbar />
-    <router-view></router-view>
+    <router-view class="container"></router-view>
   </v-app>
 </template>
 
@@ -17,8 +17,8 @@ export default {
 </script>
 <style lang="scss">
 @import "./common/styles/variables.scss";
-#v-app {
-  background: $light;
+#app-body {
+  background: $white;
   color: $black;
   max-height: inherit;
   width: 100%;

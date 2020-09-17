@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar dark dense>
+    <v-toolbar dark dense class="bg-black" :elevation="0">
       <v-toolbar-title>#Todo</v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -109,6 +109,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../common/styles/style.scss";
 .sm-screen {
   display: none;
 }
