@@ -1,17 +1,19 @@
 <template>
   <v-app id="app-body">
     <Navbar />
-    <router-view class="container"></router-view>
+    <router-view></router-view>
+    <!-- <Particle /> -->
   </v-app>
 </template>
 
 <script>
 import Navbar from "./components/navbar";
-
+// import Particle from "./components/Particle";
 export default {
   name: "App",
   components: {
     Navbar,
+    // Particle,
   },
 };
 </script>

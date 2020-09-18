@@ -110,6 +110,9 @@ export default {
 
 <style lang="scss">
 @import "../common/styles/style.scss";
+nav {
+  z-index: 2;
+}
 .sm-screen {
   display: none;
 }

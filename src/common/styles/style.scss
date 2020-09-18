@@ -1,12 +1,16 @@
 @import "./variables.scss";
 
-@mixin box-shadow {
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
+@mixin box-shadow($value: 4px) {
+  box-shadow: $value $value 0 rgba(0, 0, 0, 0.75);
 }
 
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .form {
   display: flex;
-  // position: relative;
   height: 100%;
   width: 100%;
   justify-content: center;
@@ -17,12 +21,11 @@
   background: $white;
   flex-direction: column;
   flex-basis: 400px;
-  // border-radius: $br;
-  padding: 30px 20px 40px 20px;
+  padding: 20px 20px 30px 20px;
   margin: 30px 0;
   @include box-shadow;
   border: 2px solid $black;
-  // transform: translateY(-100px);
+  z-index: 10;
 }
 .bg-black {
   background: #000 !important;
@@ -31,9 +34,64 @@
   height: auto !important;
 }
 
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+  transition: 250ms ease-in-out;
+}
+
+.default-btn {
+  background: $white;
+  border: 2px solid #000;
+  &:disabled {
+    border: 2px solid $disabled;
+    background: $disabled;
+    color: $white;
+  }
+  &:hover:not([disabled]) {
+    @include box-shadow(7px);
+  }
+}
+
+.btn-loading-spinner {
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: 2px solid $disabled;
+    border-top-color: #000;
+    border-bottom-color: #000;
+    animation: spin 800ms ease-in-out infinite;
+  }
+}
+
+.center {
+  @include center;
+}
+
+.alert-box {
+  @include center;
+  background: #e57373;
+  color: $white;
+  padding: 10px 40px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 1025px) {
   .form-card {
     margin: 0 10px;
-    transform: translateY(-100px);
   }
 }

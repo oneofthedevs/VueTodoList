@@ -1,6 +1,7 @@
 <template>
   <div class="form">
     <form @submit.prevent="onRegister()" class="form-card" autocomplete="off">
+      <div class="alert-box" v-if="formError">Invalid Email or Password</div>
       <v-row>
         <v-col>
           <v-text-field
@@ -41,16 +42,11 @@
         label="Confirm password"
         @click:append="show = !show"
       ></v-text-field>
-      <v-btn
-        class="mt-2"
-        :loading="loading"
-        :disabled="loading || isEnabled"
-        color="secondary"
-        @click="onRegister"
-      >
-        Sign Up
-      </v-btn>
-      <v-alert
+      <button class="btn default-btn" :disabled="isEnabled">
+        <span v-if="!loading">SIGN UP</span
+        ><span class="btn-loading-spinner center" v-if="loading"></span>
+      </button>
+      <!-- <v-alert
         v-if="formError"
         style="margin-top: 20px; text-align: center"
         border="top"
@@ -58,7 +54,7 @@
         dark
       >
         Invalid Email or Password
-      </v-alert>
+      </v-alert> -->
     </form>
   </div>
 </template>

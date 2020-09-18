@@ -15,7 +15,11 @@
         label="Enter your password"
         @click:append="show = !show"
       ></v-text-field>
-      <v-btn
+      <button class="btn default-btn" :disabled="isEnable" :loading="loading">
+        <span v-if="!loading">LOG IN</span
+        ><span class="btn-loading-spinner center" v-if="loading"></span>
+      </button>
+      <!-- <v-btn
         class="mt-2"
         :loading="loading"
         :disabled="loading || isEnable"
@@ -23,8 +27,9 @@
         @click="onLogin"
       >
         Login
-      </v-btn>
-      <v-alert
+      </v-btn> -->
+      <div class="alert-box" v-if="formError">Invalid Email or Password</div>
+      <!-- <v-alert
         v-if="formError"
         style="margin-top: 20px; text-align: center"
         border="top"
@@ -32,7 +37,7 @@
         dark
       >
         Invalid Email or Password
-      </v-alert>
+      </v-alert> -->
     </form>
   </div>
 </template>
@@ -59,8 +64,11 @@ export default {
       await login(this.username, this.password)
         .then(() => {
           this.$router.push({ name: "Home" });
+          this.formError = false;
         })
-        .catch((err) => console.log(err))
+        .catch(() => {
+          this.formError = true;
+        })
         .finally(() => {
           this.loading = false;
         });
