@@ -1,6 +1,8 @@
 <template>
   <div class="form">
     <form @submit.prevent="onLogin()" class="form-card" autocomplete="off">
+      <div class="alert-box" v-if="formError">Invalid Email or Password</div>
+
       <v-text-field
         v-model="username"
         label="E-mail"
@@ -19,25 +21,6 @@
         <span v-if="!loading">LOG IN</span
         ><span class="btn-loading-spinner center" v-if="loading"></span>
       </button>
-      <!-- <v-btn
-        class="mt-2"
-        :loading="loading"
-        :disabled="loading || isEnable"
-        color="secondary"
-        @click="onLogin"
-      >
-        Login
-      </v-btn> -->
-      <div class="alert-box" v-if="formError">Invalid Email or Password</div>
-      <!-- <v-alert
-        v-if="formError"
-        style="margin-top: 20px; text-align: center"
-        border="top"
-        color="red lighten-2"
-        dark
-      >
-        Invalid Email or Password
-      </v-alert> -->
     </form>
   </div>
 </template>
