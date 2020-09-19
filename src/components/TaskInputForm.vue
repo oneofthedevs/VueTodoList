@@ -20,9 +20,11 @@
         v-model="desc"
       ></v-textarea>
       <div class="flex">
-        <button class="btn default-btn f-3 mr-2">Add</button>
+        <button class="btn default-btn f-3 mr-2">
+          <span v-if="id">EDIT</span><span v-else>ADD</span>
+        </button>
         <button class="btn warning-btn f-1" @click.prevent="close()">
-          Close
+          CLOSE
         </button>
       </div>
     </form>
@@ -34,6 +36,7 @@ import { vueBus } from "./../main";
 import firebase from "firebase";
 import db from "../firebase";
 import rules from "../common/rules";
+import todoService from "../services/todoCollectionService";
 export default {
   data() {
     return {
@@ -54,6 +57,7 @@ export default {
     onSubmit() {
       if (this.id === "") this.add();
       else this.edit();
+      this.close();
     },
     onEdit(item) {
       this.id = item.id;
@@ -84,26 +88,7 @@ export default {
         email: firebase.auth().currentUser.email,
       };
       console.log(obj);
-      await db
-        .collection("users")
-        .where("email", "==", firebase.auth().currentUser.email)
-        .get()
-        .then((user) => {
-          console.log(user);
-          user.forEach((element) => {
-            db.collection("users")
-              .doc(element.id)
-              .collection("todos")
-              .add(obj)
-              .then(() => {
-                this.$store.dispatch("addToList", obj);
-              });
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      this.reset();
+      await todoService.add(obj);
     },
     edit() {
       var obj = {
@@ -121,7 +106,6 @@ export default {
           vueBus.$emit("Reload");
         })
         .catch((err) => console.log(err));
-      this.reset();
     },
   },
   mounted() {
