@@ -1,50 +1,28 @@
 <template>
-  <div class="container form--width-setter">
-    <form @submit.prevent="onSubmit()" autocomplete="off">
-      <div class="form-items">
-        <label for="title">Title</label>
-        <span class="d-flex">
-          <input
-            name="title"
-            type="text"
-            v-model="title"
-            class="form-item"
-            ref="title"
-          />
-          <select class="select-box" name="priority" v-model="priority">
-            <option value="null" selected disabled>Select Priority</option>
-            <option value="1">Low</option>
-            <option value="2">Medium</option>
-            <option value="3">High</option>
-          </select>
-        </span>
-      </div>
-      <div
-        class="form-items"
-        :class="{
-          'textarea-block': title === '' || priority === null,
-          'textarea-block--visible': title !== '' && priority !== null
-        }"
-      >
-        <label for="desc">Description</label>
-        <textarea
-          name="desc"
-          v-model="desc"
-          class="form-item-textarea"
-          ref="description"
-        ></textarea>
-      </div>
-      <div class="form-items d-flex">
-        <button
-          class="btn btn-primary"
-          :disabled="title === '' || priority === null"
-          ref="submit"
-        >
-          <span v-if="id === ''">Add</span>
-          <span v-else>Edit</span>
-        </button>
-        <button class="btn btn-reset" @click.prevent="reset()">
-          <i class="fa fa-repeat"></i> Reset
+  <div class="form">
+    <form class="form-card" @submit.prevent="onSubmit()" autocomplete="off">
+      <v-text-field
+        class="black-color"
+        v-model="title"
+        label="Give some fancy title yo"
+        :rules="[rules.required]"
+      ></v-text-field>
+      <v-select
+        v-model="priority"
+        :items="values"
+        label="Select Priority"
+        item-text="text"
+        item-value="val"
+      ></v-select>
+      <v-textarea
+        name="input-7-1"
+        label="Description"
+        v-model="desc"
+      ></v-textarea>
+      <div class="flex">
+        <button class="btn default-btn f-3 mr-2">Add</button>
+        <button class="btn warning-btn f-1" @click.prevent="close()">
+          Close
         </button>
       </div>
     </form>
@@ -55,6 +33,7 @@
 import { vueBus } from "./../main";
 import firebase from "firebase";
 import db from "../firebase";
+import rules from "../common/rules";
 export default {
   data() {
     return {
@@ -63,6 +42,12 @@ export default {
       desc: "",
       priority: null,
       completed: false,
+      rules: rules,
+      values: [
+        { text: "Low", val: 1 },
+        { text: "Medium", val: 2 },
+        { text: "High", val: 3 },
+      ],
     };
   },
   methods: {
@@ -76,6 +61,11 @@ export default {
       this.desc = item.todoData.description;
       this.priority = item.todoData.priority;
       this.completed = item.todoData.completed;
+    },
+    close() {
+      console.log("close");
+      this.$emit("closeOverlay");
+      this.reset();
     },
     reset() {
       this.id = "";
@@ -143,4 +133,11 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../common/styles/style.scss";
+.black-color {
+  color: black;
+  label {
+    color: black;
+  }
+}
 </style>

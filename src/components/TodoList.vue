@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid mt-1 list-flex">
+  <div class="list-flex">
     <TodoItem
       v-for="item in todoList"
       :key="item.id"
@@ -15,6 +15,7 @@
 import db from "./../firebase";
 import TodoItem from "./TodoItem";
 import { vueBus } from "./../main";
+import todoService from "../services/todoCollectionService";
 // import firebase from "firebase";
 // import TodoList from "@/components/TodoList.vue";
 
@@ -25,13 +26,13 @@ export default {
   },
   data() {
     return {
-      todoList: this.$store.getters.getTodos,
+      todoList: [],
       user: "",
     };
   },
   methods: {
     async fetchTodos() {
-      await this.$store.dispatch("fetchTodoList");
+      this.todoList = await todoService.getAll();
     },
     onEdit(item) {
       vueBus.$emit("Edit", item);
