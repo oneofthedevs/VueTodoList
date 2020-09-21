@@ -13,6 +13,7 @@
       dark
       large
       color="cyan"
+      :elevation="0"
       @click="overlay = !overlay"
     >
       <v-icon dark>mdi-pencil</v-icon>

@@ -7,9 +7,8 @@
       class="icon fa fa-check"
       @click="onCompleted(item)"
     ></i>
-    <h3 class="title">{{ item.todoData.title }}</h3>
+    <h3 class="title-text">{{ item.todoData.title }}</h3>
     <p class="desc">{{ item.todoData.description }}</p>
-    <p></p>
   </div>
 </template>
 
@@ -46,16 +45,40 @@ export default {
 <style lang="scss">
 @import "../common/styles/style.scss";
 
+.border-card {
+  transition: 250ms ease-in-out;
+  background: $light;
+  position: relative;
+  @include box-shadow(4px);
+  &:hover {
+    @include box-shadow(7px);
+    transform: scale(1.02);
+  }
+}
 .title {
   font-size: 1.6rem;
   font-weight: 600;
   margin: 0 0 14px 0;
 }
 
+.title-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
 .desc {
   text-align: justify;
   font-size: 0.9rem;
-  font-weight: 400;
+  font-weight: 100;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  margin: 0 !important;
 }
 .icon {
   display: flex;
@@ -84,18 +107,21 @@ export default {
   position: absolute;
   bottom: 14px;
   right: 80px;
+  z-index: 12;
 }
 
 #btn-del {
   position: absolute;
   bottom: 14px;
   right: 50px;
+  z-index: 12;
 }
 
 #btn-completed {
   position: absolute;
   bottom: 14px;
   right: 20px;
+  z-index: 12;
 }
 
 .bg-low {
