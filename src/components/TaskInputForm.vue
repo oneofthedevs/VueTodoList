@@ -1,6 +1,6 @@
 <template>
-  <div class="form">
-    <form class="form-card" @submit.prevent="onSubmit()" autocomplete="off">
+  <div class="card">
+    <form class="default-card" @submit.prevent="onSubmit()" autocomplete="off">
       <v-text-field
         class="black-color"
         v-model="title"
@@ -29,6 +29,14 @@
         </button>
       </div>
     </form>
+    <v-bottom-sheet v-model="empty">
+      <v-sheet class="text-center" height="200px">
+        <v-btn class="mt-6" color="red" @click="empty = !empty">CLOSE</v-btn>
+        <div class="py-3">
+          Chutiye ho tum
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </div>
 </template>
 
@@ -47,6 +55,7 @@ export default {
       priority: null,
       completed: false,
       rules: rules,
+      empty: false,
       values: [
         { text: "Low", val: 1 },
         { text: "Medium", val: 2 },
@@ -56,9 +65,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.id === "") this.add();
-      else this.edit();
-      this.close();
+      if (this.isEnable) {
+        if (this.id === "") this.add();
+        else this.edit();
+        this.close();
+      } else {
+        this.empty = true;
+      }
     },
     onEdit(item) {
       this.id = item.id;

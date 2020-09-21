@@ -1,26 +1,16 @@
 <template>
-  <transition card>
-    <div
-      class="card"
-      :class="{
-        'bg-low': item.todoData.priority === 1,
-        'bg-medium': item.todoData.priority === 2,
-        'bg-high': item.todoData.priority === 3,
-        'bg-completed': item.todoData.completed === true
-      }"
-    >
-      <i id="btn-edit" class="icon fa fa-edit" @click="onEdit(item)"></i>
-      <i id="btn-del" class="icon fa fa-trash" @click="onDelete(item.id)"></i>
-      <i
-        id="btn-completed"
-        class="icon fa fa-check"
-        @click="onCompleted(item)"
-      ></i>
-      <h3 class="title">{{ item.todoData.title }}</h3>
-      <p class="desc">{{ item.todoData.description }}</p>
-      <p></p>
-    </div>
-  </transition>
+  <div class="border-card fb-300 mx-2 mb-1">
+    <i id="btn-edit" class="icon fa fa-edit" @click="onEdit(item)"></i>
+    <i id="btn-del" class="icon fa fa-trash" @click="onDelete(item.id)"></i>
+    <i
+      id="btn-completed"
+      class="icon fa fa-check"
+      @click="onCompleted(item)"
+    ></i>
+    <h3 class="title">{{ item.todoData.title }}</h3>
+    <p class="desc">{{ item.todoData.description }}</p>
+    <p></p>
+  </div>
 </template>
 
 <script>
@@ -54,19 +44,7 @@ export default {
 </script>
 
 <style lang="scss">
-.card {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 300px;
-  max-width: 600px;
-  position: relative;
-  border-radius: var(--br);
-  padding: 15px 20px 40px 20px;
-  margin: 0 10px 10px 10px;
-  flex-grow: 1;
-  box-shadow: 0px 0px 1.5px 0px rgba(0, 0, 0, 0.5);
-  animation: 300ms card-in-from-top forwards;
-}
+@import "../common/styles/style.scss";
 
 .title {
   font-size: 1.6rem;
@@ -93,9 +71,6 @@ export default {
   cursor: pointer;
 }
 
-.card:hover .icon {
-  animation: 150ms fadeIn forwards;
-}
 @keyframes fadeIn {
   0% {
     opacity: 0;
