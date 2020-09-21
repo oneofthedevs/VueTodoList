@@ -6,9 +6,7 @@
         <FormInput @closeOverlay="overlay = false" />
       </div>
     </div>
-    <div class="todo-container">
-      <TodoList />
-    </div>
+    <TodoList />
     <v-btn
       class="mx-2 floting-btn-rb"
       fab

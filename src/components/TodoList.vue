@@ -77,5 +77,6 @@ export default {
 .list-flex {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 </style>

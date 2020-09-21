@@ -13,6 +13,7 @@
         label="Select Priority"
         item-text="text"
         item-value="val"
+        :rules="[rules.required]"
       ></v-select>
       <v-textarea
         name="input-7-1"
@@ -20,7 +21,7 @@
         v-model="desc"
       ></v-textarea>
       <div class="flex">
-        <button class="btn default-btn f-3 mr-2">
+        <button class="btn default-btn f-3 mr-2" disabled="isEnable">
           <span v-if="id">EDIT</span><span v-else>ADD</span>
         </button>
         <button class="btn warning-btn f-1" @click.prevent="close()">
@@ -106,6 +107,11 @@ export default {
           vueBus.$emit("Reload");
         })
         .catch((err) => console.log(err));
+    },
+  },
+  computed: {
+    isEnable() {
+      return this.title && this.priority ? true : false;
     },
   },
   mounted() {
