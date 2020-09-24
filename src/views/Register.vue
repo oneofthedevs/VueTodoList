@@ -1,6 +1,10 @@
 <template>
-  <div class="form">
-    <form @submit.prevent="onRegister()" class="form-card" autocomplete="off">
+  <div class="card">
+    <form
+      @submit.prevent="onRegister()"
+      class="default-card"
+      autocomplete="off"
+    >
       <div class="alert-box" v-if="formError">Invalid Email or Password</div>
       <v-row>
         <v-col>
